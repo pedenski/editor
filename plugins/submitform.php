@@ -4,7 +4,7 @@ include $_SERVER['DOCUMENT_ROOT'].'/'.'editor'.'/'.'inc'.'/'.'functions.php';
 
 
 /*print_r($_POST);
-
+test
 echo $title = $_POST['title'];
 echo $textarea = $_POST['textarea'];
 echo $date = $_POST['date'];*/
