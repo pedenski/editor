@@ -27,8 +27,8 @@
   <body>
 <div class="wrap"> 
    
-   <a href="createpost.php"><h2>Create Post</h2></a> <br />
-   <a href="viewpost.php"><h2>View Posts</h2></a> <br />
+   <a href="create_post.php"><h2>Create Post</h2></a> <br />
+   <a href="view_post.php"><h2>View Posts</h2></a> <br />
   
 
 </div>
