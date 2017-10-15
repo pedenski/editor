@@ -16,13 +16,15 @@ small {
 	}
 
 .Low {
-  font-weight: bold !important;
   color: #fff !important;
-  background: #A4FFD1 !important;
+  background: #1D4C34 !important;
+ 
+ 
+
 }
 
 .High {
-  font-weight: bold !important;
+  
   color: #fff !important;
   background: #FF3B65 !important
 }

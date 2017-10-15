@@ -57,14 +57,15 @@ $report = new report($db->getConn());
        
     </td>
     <td>
-       <select  name="severity" id="severity" class="selectpicker" >
+       <select  name="severity" id="severity" class="selectpicker " data-style="btn-info" >
           <?php 
             foreach($report->getSeverity() as $row) {
                   $SeverityID = $row['SeverityID'];
                   $SeverityName = $row['SeverityName'];
 
           ?>
-            <option value="<?php echo $SeverityID; ?>"><?php echo $SeverityName; ?></option>
+
+            <option  value="<?php echo $SeverityID; ?>"><?php echo $SeverityName; ?></option>
 
           <?php } ?>
 

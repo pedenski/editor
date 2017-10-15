@@ -10,7 +10,7 @@
 
 
 
-<table class="table table-hover">
+<table class="table  table-hover">
 <thead>
 </thead>
 
@@ -102,7 +102,7 @@
 
   </div>
   <div class="col-sm-4 blog-sidebar">
-    <table class="table table-hover">
+    <table class="table table-bordered table-hover">
 <thead>
 <tr>
 
