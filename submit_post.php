@@ -1,33 +1,39 @@
 <?php
-// process.php
+//include libraries
+include_once('lib/database.class.php');
+include_once('lib/report.class.php');
+
+$db = new database();
+$report = new report($db->getConn());
+
+
+
+
+
 
 $errors         = array();      // array to hold validation errors
 $data           = array();      // array to pass back data
 
-// validate the variables ======================================================
-    // if any of these variables don't exist, add an error to our $errors array
+if (!empty($errors)) {
+    // if there are items in our errors array, return those errors
+    $data['success'] = false;
+    $data['errors']  = $errors;
+} else {
+    // if there are no errors process our form, then return a message
 
-   
-// return a response ===========================================================
+            $data['severity'] = $_POST['severity'];
+            $data['category'] = $_POST['category'];
+            $data['title'] = $_POST['title'];
+            // $tags = $_POST['tags'];
+            // $tags = explode(',',$tags);
 
-    // if there are any errors in our errors array, return a success boolean of false
-    if ( ! empty($errors)) {
-
-        // if there are items in our errors array, return those errors
-        $data['success'] = false;
-        $data['errors']  = $errors;
-    } else {
-
-        // if there are no errors process our form, then return a message
-
-        // DO ALL YOUR FORM PROCESSING HERE
-        // THIS CAN BE WHATEVER YOU WANT TO DO (LOGIN, SAVE, UPDATE, WHATEVER)
-    	$data['title'] = $_POST['title'];
-    	$data['tags'] = $_POST['tags'];
-    	$data['date'] = $_POST['date'];
-    	$data['category'] = $_POST['category'];
-    	$data['severity'] = $_POST['severity'];
-        $data['text'] = $_POST['textarea'];
+        //$data['tags']=  $_POST['tags'];
+    	// $report-> = $_POST['title']; //title of the post
+    	
+    	// $data['date'] = $_POST['date'];
+    	 //$data['category'] = $_POST['category'];
+    	// $data['severity'] = $_POST['selected'];
+       // $data['text'] = $_POST['textarea'];
 
         
         // show a message of success and provide a true success variable

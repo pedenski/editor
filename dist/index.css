@@ -1,11 +1,28 @@
-.wrap {
-	padding:20px;
+body {
+	  padding-top: 4.5rem;
+	
 }
 
-.mbot-5 {
-	margin-bottom: 5px;
+small {
+	color: #AFAFAF;
 }
 
-.mtop-5 {
-	margin-top: 5px;
+.table td {
+	
+}
+
+	._comment_avatar {
+		border-right:1px solid #ededed;
+	}
+
+.Low {
+  font-weight: bold !important;
+  color: #fff !important;
+  background: #A4FFD1 !important;
+}
+
+.High {
+  font-weight: bold !important;
+  color: #fff !important;
+  background: #FF3B65 !important
 }
