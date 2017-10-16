@@ -20,10 +20,54 @@ if (!empty($errors)) {
     $data['errors']  = $errors;
 } else {
     // if there are no errors process our form, then return a message
+          
 
-            $data['severity'] = $_POST['severity'];
-            $data['category'] = $_POST['category'];
-            $data['title'] = $_POST['title'];
+  
+    //Title, UserID, Severity, Status, PostDate
+    //Table: reporrtitle
+    $report->title = $_POST['title'];
+    $report->userid = "1";
+    $report->severity = $_POST['severity'];
+    $report->status = $_POST['status'];
+    $report->incidentdate = $_POST['incidentdate'] ;
+
+    //Activate method
+   // $report->insert();
+   
+
+    //textarea and postid 
+    $report->textarea = $_POST['textarea'];
+    //$report->insertTextArea();
+
+    //Insert tags
+    
+
+     //$report->tags = $tags;
+
+     // foreach($tags as  &$t) {
+     //    echo ":TagID".",".$t."<br />";
+     // }
+
+     
+     //$data['tags'] = $tags;
+   
+
+    //$data['tags'] = $_POST['tags'];
+
+
+            // $data['title'] = $_POST['title'];
+            // $data['incidentdate'] = $_POST['incidentdate'];
+            // $data['severity'] = $_POST['severity'];
+            // $data['status'] = $_POST['status'];
+
+
+            // $data['textarea'] = $_POST['textarea'];
+             $arr = $_POST['tags'];
+             $tags = explode(',',$arr);     
+             print_r($tags);
+
+
+
             // $tags = $_POST['tags'];
             // $tags = explode(',',$tags);
 
@@ -37,8 +81,8 @@ if (!empty($errors)) {
 
         
         // show a message of success and provide a true success variable
-        //$data['success'] = true;
-       // $data['message'] = 'Success!';
+        // $data['success'] = true;
+        // $data['message'] = 'Success!';
     }
 
     // return all our data to an AJAX call

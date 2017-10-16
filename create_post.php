@@ -41,38 +41,37 @@ $report = new report($db->getConn());
 </tr>
 <tr>
     <th scope="row">Details</th>
-    <td><input type="text" class="form-control mbot-5" name="date" id="datetimepicker7" placeholder="02/04/88"> </td>
-    <td>
-      
-        <select name="category" id="category" class="selectpicker form-control" data-style="btn-success" data-hide-disabled="true" data-live-search="true">
+    <td><input type="text" class="form-control mbot-5" name="incidentdate" id="datetimepicker7" placeholder="02/04/88"> </td>
+    
+    <!-- category -->
+   <td>
+        <select name="status" id="status" class="selectpicker form-control" data-style="btn-success" data-hide-disabled="true" data-live-search="true">
         <optgroup disabled="disabled" label="disabled">
           <option>Hidden</option>
         </optgroup>
-        <optgroup label="Category">
-          <option data-icon="fa fa-cog">Resolved</option>
-          <option data-icon="fa fa-cog">Unresolved</option>
-        </optgroup>
+        <optgroup label="status">
+        <?php
+          foreach($report->getStatus() as $row) {
+            $StatusID = $row['StatusID'];
+            $StatusName = $row['StatusName'];
+        ?>
+       <option value="<?php echo $StatusID; ?>"> <?php echo $StatusName; ?> </option>
+        <?php } ?>
+       </optgroup>
         </select>
-
-       
-    </td>
-    <td>
+   </td>
+   <!-- severity -->
+   <td>
        <select  name="severity" id="severity" class="selectpicker " data-style="btn-info" >
           <?php 
             foreach($report->getSeverity() as $row) {
                   $SeverityID = $row['SeverityID'];
                   $SeverityName = $row['SeverityName'];
-
           ?>
-
-            <option  value="<?php echo $SeverityID; ?>"><?php echo $SeverityName; ?></option>
-
+          <option  value="<?php echo $SeverityID; ?>"><?php echo $SeverityName; ?></option>
           <?php } ?>
-
-
-       
-       </select>
-    </td>
+        </select>
+   </td>
 </tr>
 <tr>
     <th scope="row">Affected Devices / Services</th>
