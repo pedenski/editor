@@ -78,7 +78,7 @@ $report = new report($db->getConn());
    
      <td colspan="4">
 
-    <input  type="text" name="tags" value="Switch,Router,database" data-role="tagsinput">
+    <input  type="text" id="tags" name="tags" value="Switch,Router,database" data-role="tagsinput">
 </td>
    
 </tr>

@@ -1,4 +1,25 @@
-<?php include('_header_boot4.php') ?>
+<?php
+//page title
+$id = isset($_GET['id']) ? $_GET['id'] : die ('Error: Missing ID');
+$page_title = "View Incident";
+
+
+
+//include libraries
+include_once('lib/database.class.php');
+include_once('lib/report.class.php');
+include_once('lib/severity.class.php');
+
+
+$db = new database();
+$report = new report($db->getConn());
+$severity = new severity($db->getConn());
+
+$report->pageID = $id;
+
+
+
+include('_header_boot4.php') ?>
 <body>
 
 
@@ -9,7 +30,7 @@
 
 
 
-
+<?php $report->getPostTitle(); ?>
 <table class="table  table-hover">
 <thead>
 </thead>
@@ -17,11 +38,10 @@
 
 <tbody>
 
-
 <tr>
    
    
-   <td colspan="4"><h2 class="blog-post-title">Sample blog post</h2>
+   <td colspan="4"><h2 class="blog-post-title"><?php echo $report->title; ?> - <?php echo $report->postid; ?></h2>
    </td>
   </th>
    
@@ -41,35 +61,11 @@
 
 <tr>
 <td colspan="4 _view_content" > 
-            <p>This blog post shows a few different types of content that's supported and styled with Bootstrap. Basic typography, images, and code are all supported.</p>
-            
-            <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
-            <blockquote>
-              <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-            </blockquote>
-            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-            <h2>Heading</h2>
-            <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-            <h3>Sub-heading</h3>
-            <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-            <pre><code>Example code block</code></pre>
-            <p>Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.</p>
-            <h3>Sub-heading</h3>
-            <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <ul>
-              <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
-              <li>Donec id elit non mi porta gravida at eget metus.</li>
-              <li>Nulla vitae elit libero, a pharetra augue.</li>
-            </ul>
-            <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
-            <ol>
-              <li>Vestibulum id ligula porta felis euismod semper.</li>
-              <li>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</li>
-              <li>Maecenas sed diam eget risus varius blandit sit amet non magna.</li>
-            </ol>
-            <p>Cras mattis consectetur purus sit amet fermentum. Sed posuere consectetur est at lobortis.</p>
-
-    </td>
+            <?php 
+            $report->getPostDetail();
+            echo $report->textarea;
+            ?>
+</td>
 </tr>
 
 <tr>
@@ -95,7 +91,10 @@
    <!-- COMMENT REPLY -->   
     <td colspan="4"><textarea id="textarea" name="textarea" id="textarea">Hello, World!</textarea></td>
 </tr>
- 
+ <tr>
+<td colspan="1"><button type="button" class="btn btn-outline-danger btn-sm btn-block">Clear</button></td>
+<td colspan="3"><button type="button" class="btn btn-outline-primary btn-sm btn-block">Submit</button></td>
+</tr>
     </table>
 
 
@@ -113,10 +112,16 @@
   <!-- Resolution -->
 <tr>
    <td>
-   <i class="fa fa-calendar" aria-hidden="true"></i><small> Posted:</small> Febuary 4, 1988 <br />  
-   <i class="fa fa-wrench" aria-hidden="true"></i>  <small>Status:</small> Unresolved <br />
+   <i class="fa fa-calendar" aria-hidden="true"></i><small> Posted:</small><?php echo $report->incidentdate; ?> <br />  
+   <i class="fa fa-wrench" aria-hidden="true"></i>  <small>Status:</small> <?php echo $report->status; ?> <br />
+   <i class="fa fa-wrench" aria-hidden="true"></i>  <small>Severity:</small>
+   <?php 
+   $severity->severityID = $report->severity;
+   $severity->translateID();
+   echo $severity->severityName;
+   ?> <br />
    <i class="fa fa-commenting" aria-hidden="true"></i> <small>Reply:</small> 3<br />
-   <i class="fa fa-pencil-square-o" aria-hidden="true"></i> <small>Author: </small>Zild<br />
+   <i class="fa fa-pencil-square-o" aria-hidden="true"></i> <small>Author: </small><?php echo $report->userid; ?><br />
     </td>
 </tr>  
 

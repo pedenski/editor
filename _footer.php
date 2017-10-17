@@ -11,7 +11,7 @@ $(document).ready(function() {
             'incidentdate' : $("input[name=incidentdate]").val(),
             'status'    : $("select#status option:selected" ).val(),
             'severity'  : $("select#severity option:selected" ).val(),
-            'tags'      : $("input[name=tags]").tagsinput(),
+            'tags'      : $("input#tags").val(),
             'textarea'  : $("#textarea[name=textarea]").val()
         };
            
@@ -33,7 +33,7 @@ $(document).ready(function() {
             });
 
         // stop the form from submitting the normal way and refreshing the page
-        //event.preventDefault();
+        event.preventDefault();
     });
 
 });
