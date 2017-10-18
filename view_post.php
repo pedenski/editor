@@ -9,11 +9,17 @@ $page_title = "View Incident";
 include_once('lib/database.class.php');
 include_once('lib/report.class.php');
 include_once('lib/severity.class.php');
-
+include_once('lib/status.class.php');
+include_once('lib/user.class.php');
+include_once('lib/tags.class.php');
 
 $db = new database();
 $report = new report($db->getConn());
 $severity = new severity($db->getConn());
+$status = new status($db->getConn());
+$user = new user($db->getConn());
+$tags = new tags($db->getConn());
+
 
 $report->pageID = $id;
 
@@ -101,39 +107,81 @@ include('_header_boot4.php') ?>
 
   </div>
   <div class="col-sm-4 blog-sidebar">
-    <table class="table table-bordered table-hover">
-<thead>
-<tr>
+<table class="table info_table table-sm">
+  <thead>
+    
+  </thead>
+  <tbody>
+    <tr>
+      <td class="info_table_icon"> <i class="fa fa-calendar" aria-hidden="true"></i></td class="z"><td><span class="text-muted"> Incident Date</span></td>
+      <td><?php echo $report->incidentdate; ?></td>
+    
+    </tr>
+    <tr>
+       <td class="info_table_icon"><i class="fa fa-object-ungroup" aria-hidden="true"></i></td><td><span class="text-muted"> Status</span></td>
+      <td><?php 
 
-</tr>
-</thead>
+
+      $status->StatusID = $report->status;
+      $status->translateID();
+      echo $status->StatusName;
+
+      ?></td>
+  
+    </tr>
+    <tr>
+    <td class="info_table_icon"> <i class="fa fa-thermometer-quarter" aria-hidden="true"></i></td><td><span class="text-muted"> Severity</span></td>
+    <td> <?php 
+           $severity->severityID = $report->severity;
+           $severity->translateID();
+
+           if($severity->severityName == "Low") {
+              echo "<span class='badge badge-warning'>".$severity->severityName."</span>";
+           } elseif($severity->severityName == "High") {
+              echo "<span class='badge badge-danger'>".$severity->severityName."</span>";
+           }
+         ?> 
+    </td>
+    </tr>
+      <tr>
+       <td class="info_table_icon"> <i class="fa fa-user-o" aria-hidden="true"></i></td><td><span class="text-muted"> Author </span></td>
+      <td><?php 
+          $user->UserID = $report->userid;
+          $user->translateID();
+          echo $user->UserName;
+          ?>
+      </td>
+    </tr>
+      <tr>
+       <td class="info_table_icon"><i class="fa fa-envelope-o" aria-hidden="true"></i></td><td><span class="text-muted"> Replies</span></td>
+      <td>3</td>
+    </tr>
+
+
+
+  </tbody>
+</table>
+
+
+
+
+<table class="table table-bordered table-sm">
 
 <tbody>
-  <!-- Resolution -->
-<tr>
-   <td>
-   <i class="fa fa-calendar" aria-hidden="true"></i><small> Posted:</small><?php echo $report->incidentdate; ?> <br />  
-   <i class="fa fa-wrench" aria-hidden="true"></i>  <small>Status:</small> <?php echo $report->status; ?> <br />
-   <i class="fa fa-wrench" aria-hidden="true"></i>  <small>Severity:</small>
-   <?php 
-   $severity->severityID = $report->severity;
-   $severity->translateID();
-   echo $severity->severityName;
-   ?> <br />
-   <i class="fa fa-commenting" aria-hidden="true"></i> <small>Reply:</small> 3<br />
-   <i class="fa fa-pencil-square-o" aria-hidden="true"></i> <small>Author: </small><?php echo $report->userid; ?><br />
-    </td>
-</tr>  
-
-
-<!-- category -->
+<!-- Severity -->
 <tr>
    <td >
-     Severity: <span class="badge badge-danger">High</span>
+     Tags
    </td>
    
 </tr>  
 
+<?php 
+$tags->PostID = $id;
+$a = $tags->getTagsPage();
+print_r($a);
+
+?>
 <!-- tags -->
 <tr>
    <td>
@@ -143,7 +191,8 @@ include('_header_boot4.php') ?>
         <span class="badge badge-info">Castlerock</span>
      </td>
 </tr>  
-
+</tbody>
+</table>
   </div><!-- col sm 4 -->
 </div><!--row-->
 </div><!-- container -->

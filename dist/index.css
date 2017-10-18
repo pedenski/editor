@@ -28,3 +28,7 @@ small {
   color: #fff !important;
   background: #FF3B65 !important
 }
+
+.table.info_table > tbody > tr > td.info_table_icon {
+	text-align: center;
+}
