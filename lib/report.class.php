@@ -25,6 +25,7 @@ class report {
 	public $incidentdate; //date creation
 	public $pageID;
 
+
 	//textarea and lastid
 	public $textarea;
 
@@ -151,7 +152,24 @@ class report {
 		
 	}
 
+	public function getTitleListing() {
+		//returns all post titles at index.php
+		$q = "SELECT *  FROM ".$this->reporttitle." LIMIT  20";
+		$sql = $this->conn->prepare($q);
+		$sql->execute();
+		$row = $sql->fetchALL(PDO::FETCH_ASSOC);
+		return $row;
 
+	}
+
+	public function getPostDetailsOfTitle() {
+		$q = "SELECT * FROM ".$this->reportdetails." WHERE PostID = ".$this->postid;
+		$sql = $this->conn->prepare($q);
+		$sql->execute();
+		$row = $sql->fetch(PDO::FETCH_ASSOC);
+		$this->textarea = $row['PostText'];
+		
+	}
 
 }
 

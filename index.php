@@ -1,60 +1,113 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<?php 
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="./dist/bootstrapCSS/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 
-    <script src="./dist/tinymce/tinymce.min.js"></script>
-    <link href="./dist/index.css" rel="stylesheet">   
+//include libraries
+include_once('lib/database.class.php');
+include_once('lib/report.class.php');
+include_once('lib/severity.class.php');
+include_once('lib/status.class.php');
+include_once('lib/user.class.php');
+include_once('lib/tags.class.php');
+
+$db = new database();
+$report = new report($db->getConn());
+$severity = new severity($db->getConn());
+$status = new status($db->getConn());
+$user = new user($db->getConn());
+$tags = new tags($db->getConn());
+
+include('_header_boot4.php');
+?>
+
+<body>
+
+<?php 
+$titleListing = $report->getTitleListing();
+?>
+<div class="container">
+<div class="row">
+  <div class="col-sm-8">
+   
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i> Recent</a>
+  </li>
+ 
+  <li class="nav-item">
+    <a class="nav-link resolved" href="#"><i class="fa fa-check-square-o" aria-hidden="true"></i> Resolved</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link unresolved" href="#"> <i class="fa fa-times" aria-hidden="true"></i> Unresolved</a>
+  </li>
+</ul>
+ 
+<div class="_titlelisting">  
+    <?php foreach($titleListing as $row) {
+          //small 'l' for listing
+          $lpid = $row['PostID'];
+          $ltitle = $row['PostTitle'];
+          $luserID = $row['UserID'];
+          $lseverity = $row['Severity'];
+          $lstatus = $row['Status'];
+          $lcreated = $row['PostDate']; ?>
+
+
+  <h4 class="text-info"><a class="title_post" href="view_post.php?id=<?php echo $lpid; ?>"><?php echo ucfirst($ltitle); ?></h4></a>
+  <p class="lead text-secondary">  <small class="text-muted">
+  <?php
+    $report->postid = $lpid;
+    $report->getPostDetailsOfTitle();
+  ?>
+<?php echo strip_tags(substr($report->textarea, 0, 300));?>...
+
+
+</small>
+  </p>
+  <p class="mb-0"><?php 
+                  $tags->PostID = $lpid;
+                  $a = $tags->getTagsPage();
+
+                  foreach($a as $k => $v) { ?>
+                   <span class="badge badge-warning"><?php echo $v['TagName'];?></span>
+                   <?php } ?>
+  </p>
+ <hr>
+  <?php } ?>
+</div>
     
 
-    <script type="text/javascript">
-      tinymce.init({
-        selector: '#textarea',
-        menubar: false,
-        selector: 'textarea',
-        branding: false,
-        toolbar: 'undo redo styleselect bold italic alignleft aligncenter alignright bullist numlist outdent indent code codesample',
-        plugins: 'code codesample'
-       });
-    </script>
-
-  </head>
-  <body>
-<div class="wrap"> 
-   
-   <a href="create_post.php"><h2>Create Post</h2></a> <br />
-   <a href="view_post.php"><h2>View Posts</h2></a> <br />
-  
-
-</div>
 
 
 
 
-
-
-
-
-
+  </div>
+  <div class="col-sm-4 blog-sidebar">
+   <a class="btn btn-outline-primary btn-block" href="create_post.php" role="button"><i class="fa fa-plus" aria-hidden="true"></i> Create Incident Report</a>
+     <hr>
+    <table class="table table-bordered table-sm">
+      <tbody>
+      <!-- Severity -->
+      <tr>
+         <td >
+         Online:
+         </td>
+         
+      </tr>  
+      <tr>
+         <td>
+      Zild, Murai, Test
+         </td>
+      </tr>  
+      </tbody>
+      </table>
+  </div><!-- col sm 4 -->
+</div><!--row-->
+</div><!-- container -->
 
 
 
 
 
+</body>
 
-
-
-
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
-  </body>
-</html>
+<?php include('_footer.php'); ?>

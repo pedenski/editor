@@ -37,7 +37,7 @@ include('_header_boot4.php') ?>
 
 
 <?php $report->getPostTitle(); ?>
-<table class="table  table-hover">
+<table class="table table-sm">
 <thead>
 </thead>
 
@@ -47,7 +47,7 @@ include('_header_boot4.php') ?>
 <tr>
    
    
-   <td colspan="4"><h2 class="blog-post-title"><?php echo $report->title; ?> - <?php echo $report->postid; ?></h2>
+   <td colspan="4"><h2 class="blog-post-title"><?php echo ucfirst($report->title); ?></h2>
    </td>
   </th>
    
@@ -175,21 +175,16 @@ include('_header_boot4.php') ?>
    </td>
    
 </tr>  
-
+<tr>
+   <td>
 <?php 
 $tags->PostID = $id;
 $a = $tags->getTagsPage();
-print_r($a);
 
-?>
-<!-- tags -->
-<tr>
-   <td>
-     <span class="badge badge-info">Info</span>
-      <span class="badge badge-info">Server</span>
-       <span class="badge badge-info">PHP</span>
-        <span class="badge badge-info">Castlerock</span>
-     </td>
+foreach($a as $k => $v) { ?>
+<span class="badge badge-info"><?php echo $v['TagName'];?></span>
+<?php } ?>
+   </td>
 </tr>  
 </tbody>
 </table>

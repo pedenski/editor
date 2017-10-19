@@ -22,7 +22,7 @@ $report = new report($db->getConn());
    
 
 
-<form action="submit_post.php" method="POST">
+<form id="new_incident" action="submit_post.php" method="POST" onkeypress="return event.keyCode != 13;">
 <table class="table table-bordered table-hover">
 <thead>
 <tr>

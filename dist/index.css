@@ -32,3 +32,26 @@ small {
 .table.info_table > tbody > tr > td.info_table_icon {
 	text-align: center;
 }
+
+._titlelisting {
+	padding:5px;
+
+}
+
+	a.title_post {
+		text-decoration: none;
+
+	}
+
+	.nav-link.resolved {
+		color: green;
+	}
+	.nav-link.unresolved {
+		color: red;
+	}
+
+pre.language-php  {
+	padding: 5px;
+	background: #EFEDED;
+	border-left: 1px solid #A1A1A1;
+}
