@@ -1,5 +1,12 @@
 <?php 
+session_start();
+if(isset($_SESSION['SessionID'])) {
+  echo "yes";
 
+} else {
+
+  echo "no";
+}
 
 //include libraries
 include_once('lib/database.class.php');
@@ -13,13 +20,15 @@ $db = new database();
 $report = new report($db->getConn());
 $severity = new severity($db->getConn());
 $status = new status($db->getConn());
-$user = new user($db->getConn());
+$user = new user($db);
 $tags = new tags($db->getConn());
 
 include('_header_boot4.php');
 ?>
 
 <body>
+
+
 
 <?php 
 $titleListing = $report->getTitleListing();
@@ -40,8 +49,15 @@ $titleListing = $report->getTitleListing();
     <a class="nav-link unresolved" href="#"> <i class="fa fa-times" aria-hidden="true"></i> Unresolved</a>
   </li>
 </ul>
+
+<table class="table _titlelisting">
+  <thead>
+    <tr>
+    </tr>
+  </thead>
+  <tbody>
+
  
-<div class="_titlelisting">  
     <?php foreach($titleListing as $row) {
           //small 'l' for listing
           $lpid = $row['PostID'];
@@ -51,55 +67,112 @@ $titleListing = $report->getTitleListing();
           $lstatus = $row['Status'];
           $lcreated = $row['PostDate']; ?>
 
+<tr>
 
-  <h4 class="text-info"><a class="title_post" href="view_post.php?id=<?php echo $lpid; ?>"><?php echo ucfirst($ltitle); ?></h4></a>
-  <p class="lead text-secondary">  <small class="text-muted">
+<td align="left"><a class="title_post" href="view_post.php?id=<?php echo $lpid; ?>"><?php echo ucfirst($ltitle); ?></a></td>
+
+<td align="right"><small>
+
+<?php 
+           $severity->severityID = $lseverity;
+           $severity->translateID();
+
+           if($severity->severityName == "Low") {
+              echo "<a class='text-warning'>".$severity->severityName."</a>";
+           } elseif($severity->severityName == "High") {
+              echo "<a class='text-danger'>".$severity->severityName."</a>";
+           }
+         ?> 
+
+
+
+
+
+ | <i class="fa fa-clock-o" aria-hidden="true"></i> <?php echo $lcreated; ?></small></td>
+ 
+  
+ </tr>
+ <tr> 
   <?php
     $report->postid = $lpid;
     $report->getPostDetailsOfTitle();
   ?>
-<?php echo strip_tags(substr($report->textarea, 0, 300));?>...
 
 
-</small>
-  </p>
-  <p class="mb-0"><?php 
+<td colspan="3"><?php echo strip_tags(substr($report->textarea, 0, 300));?>...</td>
+</tr>
+
+
+
+<tr>
+ <td colspan="3">   
+<?php 
                   $tags->PostID = $lpid;
                   $a = $tags->getTagsPage();
 
                   foreach($a as $k => $v) { ?>
-                   <span class="badge badge-warning"><?php echo $v['TagName'];?></span>
+     <a href="#" class="badge badge-info"><?php echo $v['TagName'];?></a> 
                    <?php } ?>
-  </p>
- <hr>
+</td>
+</tr>
+
   <?php } ?>
-</div>
+
+</tbody>
+</table>
+
     
-
-
-
-
 
   </div>
   <div class="col-sm-4 blog-sidebar">
-   <a class="btn btn-outline-primary btn-block" href="create_post.php" role="button"><i class="fa fa-plus" aria-hidden="true"></i> Create Incident Report</a>
-     <hr>
+ 
+
+
+
+
+
+    <form id="login" action="login.php" method="POST">
     <table class="table table-bordered table-sm">
+      
       <tbody>
       <!-- Severity -->
       <tr>
          <td >
-         Online:
+        <input type="text" id="username" name="username" class="form-control mb-2 mb-sm-0"  placeholder="Username">
          </td>
          
       </tr>  
       <tr>
          <td>
-      Zild, Murai, Test
+     
+    <input type="password" id="password" name="password" class="form-control" placeholder="Password">
+
+         </td>
+         </tr>  
+
+      <tr>
+         <td>
+     
+    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+    <a href="logout.php">Logout</a>
+
          </td>
       </tr>  
       </tbody>
+         
       </table>
+  </form>
+
+
+
+
+
+
+
+
+   <a class="btn btn-outline-primary btn-block" href="create_post.php" role="button"><i class="fa fa-plus" aria-hidden="true"></i> Create Incident Report</a>
+  
+
   </div><!-- col sm 4 -->
 </div><!--row-->
 </div><!-- container -->
@@ -110,4 +183,4 @@ $titleListing = $report->getTitleListing();
 
 </body>
 
-<?php include('_footer.php'); ?>
+<?php include('_footer_boot4.php'); ?>

@@ -154,7 +154,7 @@ class report {
 
 	public function getTitleListing() {
 		//returns all post titles at index.php
-		$q = "SELECT *  FROM ".$this->reporttitle." LIMIT  20";
+		$q = "SELECT *  FROM ".$this->reporttitle." ORDER BY PostID DESC LIMIT  20";
 		$sql = $this->conn->prepare($q);
 		$sql->execute();
 		$row = $sql->fetchALL(PDO::FETCH_ASSOC);

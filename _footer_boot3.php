@@ -1,52 +1,8 @@
 <footer>
-<script>
-
-
-
-
-
-</script>
-<script>
-$(document).ready(function() {
-
-
-
-    // process the form
-    $('form').submit(function(event) {
-                             // get the form data
-        // there are many ways to get this data using jQuery (you can use the class or id also)
-        var formData = {
-            'title'     : $("input[name=title]").val(),
-            'incidentdate' : $("input[name=incidentdate]").val(),
-            'status'    : $("select#status option:selected" ).val(),
-            'severity'  : $("select#severity option:selected" ).val(),
-            'tags'      : $("input#tags").val(),
-            'textarea'  : $("#textarea[name=textarea]").val()
-        };
-           
-        // process the form
-        $.ajax({
-            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : 'submit_post.php', // the url where we want to POST
-            data        : formData, // our data object
-            dataType    : 'json', // what type of data do we expect back from the server
-            encode      : true
-        })
-            // using the done promise callback
-                .done(function(data) {
-
-                // log data to the console so we can see
-                console.log(data); 
-
-                // here we will handle errors and validation messages
-            });
-
-        // stop the form from submitting the normal way and refreshing the page
-        event.preventDefault();
-    });
-
-});
-</script>
+<?php 
+//dedicated php footer for create_post due to 'bootstrap tags and dropdown dependencies'
+include_once('inc/create_post.script.php'); 
+?>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -76,7 +32,7 @@ $(document).ready(function() {
                 this.setOptions({
                     minTime:'8:00'
                 });
-        };
+        };asfasdf
         $('#datetimepicker7').datetimepicker({
             onChangeDateTime:logic,
             onShow:logic

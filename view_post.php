@@ -75,27 +75,56 @@ include('_header_boot4.php') ?>
 </tr>
 
 <tr>
-   <!-- COMMENT user -->   
-    <td class="_comment_avatar"> 
+<td colspan="4">
 
-    <a href="https://placeholder.com"><img src="http://via.placeholder.com/100x100/87CCE6"></a>
-  </td >
-    <td colspan="4" class="_comment_body"><p>Cras mattis consectetur purus sit amet fermentum. asdfasdfasdfsdfasfasfasdfffsadfsdfasdfasdfSed posuere consectetur est at lobortismattis consectetur purus sit amet fermentum. asdfasdfasdfsdfasfasfamattis consectetur purus sit amet fermentum. asdfasdfa amet fermentum. asdfasdfa</p></td>
+
+
+<div class="alert alert-success" role="alert">
+  <p class="lead"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>  Resolution </p> <hr>
+  <?php 
+            $report->getPostDetail();
+            echo $report->textarea;
+            ?>
+</div>
+
+
+</td>
 </tr>
+
+
 <tr>
    <!-- COMMENT user -->   
     <td class="_comment_avatar"> 
 
-    <a href="https://placeholder.com"><img src="http://via.placeholder.com/100x100/FFC96C"></a>
+    <a href="https://placeholder.com"><img src="http://via.placeholder.com/80x80/87CCE6"></a>
   </td >
-    <td colspan="4" class="_comment_body"><p>Cras mattis consectetur purus sit amet fermentum. asdfasdfasdfsdfasfasfasdfffsadfsdfasdfa</p></td>
+
+    <td colspan="4" class="_comment_body">
+
+  <div class="comment_div">  
+   <div class="btn-group">
+  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   <i class="fa fa-wrench" aria-hidden="true"></i>
+  </button>
+  <div class="dropdown-menu">
+    ...
+  </div>
+    </div>
+   </div>
+
+
+
+   <p>Cras mattis consectetur purus sit amet fermentum. asdfasdfasdf asdfasdfasdfsdfasfasfasdfffsadasdfasdfasdfsadfsdafasdfsdfasdfasdfSed posuere consectetur est at lobortismattis consectetur purus sit amet fermentum. asdfasdfasdfsdfasfasfamattis consectetur purus sit amet fermentum. asdfasdfa amet fermentum. asdfasdfa</p></div>
+ </td>
+
 </tr>
+
 
 
 
 <tr>
    <!-- COMMENT REPLY -->   
-    <td colspan="4"><textarea id="textarea" name="textarea" id="textarea">Hello, World!</textarea></td>
+    <td colspan="4"><div id="postreply"><textarea id="textarea" name="textarea" id="textarea"></textarea></div></td>
 </tr>
  <tr>
 <td colspan="1"><button type="button" class="btn btn-outline-danger btn-sm btn-block">Clear</button></td>
@@ -188,7 +217,10 @@ foreach($a as $k => $v) { ?>
 </tr>  
 </tbody>
 </table>
-  </div><!-- col sm 4 -->
+<button type="button" id="btn-answer" class="btn btn-warning btn-sm">Reply Answer</button>
+</div><!-- col sm 4 -->
+
+
 </div><!--row-->
 </div><!-- container -->
 
@@ -197,4 +229,4 @@ foreach($a as $k => $v) { ?>
 
 
 </body>
-<?php include('_footer.php'); ?>
+<?php include('_footer_boot4.php'); ?>

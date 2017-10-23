@@ -101,4 +101,5 @@ $report = new report($db->getConn());
     </table>
   </form>
 </div>
-<?php include('_footer.php'); ?>
+<!-- boot 3 for the 'bootstrap tags and dropdown' dependency -->
+<?php include('_footer_boot3.php'); ?>
