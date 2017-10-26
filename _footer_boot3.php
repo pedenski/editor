@@ -32,7 +32,7 @@ include_once('inc/create_post.script.php');
                 this.setOptions({
                     minTime:'8:00'
                 });
-        };asfasdf
+        };
         $('#datetimepicker7').datetimepicker({
             onChangeDateTime:logic,
             onShow:logic
